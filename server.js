@@ -8,7 +8,7 @@ const app = express();
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
 	cors: {
-		origin: 'http://127.0.0.1:3000',
+		origin: 'https://alexbos.co',
 	},
 });
 
@@ -30,9 +30,9 @@ io.on('connection', (socket) => {
 		io.to(socket.id).emit('game:start', word);
 	});
 
-    socket.on('game:end', (roomId, gameStats) => {
-        io.to(roomId).emit('game:end', socket.id, gameStats);
-    });
+	socket.on('game:end', (roomId, gameStats) => {
+		io.to(roomId).emit('game:end', socket.id, gameStats);
+	});
 
 	socket.on('disconnecting', () => {
 		for (const roomId of socket.rooms) {
